@@ -5,12 +5,24 @@ import ImageGeneratorForm from './components/ImageGeneratorForm';
 import ImageDisplay from './components/ImageDisplay';
 import Loader from './components/Loader';
 
+//const { AzureOpenAI } = require('openai');
 import OpenAI from 'openai';
 
+const endpoint = process.env.REACT_APP_AZURE_OPENAI_ENDPOINT;
 const apiKey = process.env.REACT_APP_AZURE_OPENAI_API_KEY;
-const deploymentName = process.env.REACT_APP_AZURE_OPENAI_DEPLOYMENT_NAME;
+//const deploymentName = process.env.REACT_APP_AZURE_OPENAI_DEPLOYMENT_NAME;
+//const apiVersion = process.env.REACT_APP_AZURE_OPENAI_API_VERSION;
+const deploymentName = "gpt-image-1";
+const apiVersion = "";
 
 function getClient() {
+//  return new AzureOpenAI({
+//    endpoint,
+//    apiKey,
+//    apiVersion,
+//    deployment: deploymentName,
+//    dangerouslyAllowBrowser: true,
+//  });
   return new OpenAI({
     apiKey: apiKey,
     dangerouslyAllowBrowser: true
@@ -38,7 +50,7 @@ function App() {
         model: deploymentName,
         size: '1024x1024',
         n: 1,
-        quality: 'low'
+        quality: 'medium'
       });
       
       const image_base64 = results.data[0].b64_json;
